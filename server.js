@@ -1,11 +1,22 @@
-const express = require("express");
-const mysql = require("mysql");
-const bodyparser = require("body-parser");
+const bodyParser = require('body-parser');
+const express = require('express');
+const mysql = require('mysql');
+
 const app = express();
-const port = process.env.PORT || 3000; 
+const myConnection = require('express-myconnection');
+const port = process.env.PORT || 3000;
 
-app.use(bodyparser.urlencoded({extended : true}));
-app.use(bodyparser.json);
+app.use(express.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.json());
 
 
-app.listen(port, ()=> console.log(`notre appli est démarrée sur le port : ${port}` ));
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    port: 3306,
+    database: 'dsi_sensibilisation'
+  })
+  
+  module.exports = {app, port, connection}
