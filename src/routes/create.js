@@ -1,13 +1,11 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const UserModel = require('./src/models/users');
-const userNew = UserModel(Sequelize, DataTypes);
-// :instanciation models
+const {User} = require("../db/sequelize");
 
-sequelize.sync({force: true})
-.then(_ => {
-    console.log('synchro ok');
-    userNew.create({
-        role :"admin",
-        password: "fhkuzehfk"
+module.exports = (app) => {
+    app.post('/user_tests', (req, res) => {
+        User.create(req.body)
+        .then(users => {
+            const message = 'User créé';
+            res.json({message, data: users});
+        })
     })
-})
+}

@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 require('./src/routes/findAll')(app);
 require('./src/routes/findUser')(app);
+require('./src/routes/create')(app);
 
 
 
